@@ -10,8 +10,10 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TasksRouteImport } from './routes/tasks'
+import { Route as SignupRouteImport } from './routes/signup'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as NotesRouteImport } from './routes/notes'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as InspireRouteImport } from './routes/inspire'
 import { Route as CalendarRouteImport } from './routes/calendar'
 import { Route as IndexRouteImport } from './routes/index'
@@ -19,6 +21,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const TasksRoute = TasksRouteImport.update({
   id: '/tasks',
   path: '/tasks',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProfileRoute = ProfileRouteImport.update({
@@ -29,6 +36,11 @@ const ProfileRoute = ProfileRouteImport.update({
 const NotesRoute = NotesRouteImport.update({
   id: '/notes',
   path: '/notes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const InspireRoute = InspireRouteImport.update({
@@ -51,16 +63,20 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/calendar': typeof CalendarRoute
   '/inspire': typeof InspireRoute
+  '/login': typeof LoginRoute
   '/notes': typeof NotesRoute
   '/profile': typeof ProfileRoute
+  '/signup': typeof SignupRoute
   '/tasks': typeof TasksRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/calendar': typeof CalendarRoute
   '/inspire': typeof InspireRoute
+  '/login': typeof LoginRoute
   '/notes': typeof NotesRoute
   '/profile': typeof ProfileRoute
+  '/signup': typeof SignupRoute
   '/tasks': typeof TasksRoute
 }
 export interface FileRoutesById {
@@ -68,22 +84,42 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/calendar': typeof CalendarRoute
   '/inspire': typeof InspireRoute
+  '/login': typeof LoginRoute
   '/notes': typeof NotesRoute
   '/profile': typeof ProfileRoute
+  '/signup': typeof SignupRoute
   '/tasks': typeof TasksRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/calendar' | '/inspire' | '/notes' | '/profile' | '/tasks'
+  fullPaths:
+    | '/'
+    | '/calendar'
+    | '/inspire'
+    | '/login'
+    | '/notes'
+    | '/profile'
+    | '/signup'
+    | '/tasks'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/calendar' | '/inspire' | '/notes' | '/profile' | '/tasks'
+  to:
+    | '/'
+    | '/calendar'
+    | '/inspire'
+    | '/login'
+    | '/notes'
+    | '/profile'
+    | '/signup'
+    | '/tasks'
   id:
     | '__root__'
     | '/'
     | '/calendar'
     | '/inspire'
+    | '/login'
     | '/notes'
     | '/profile'
+    | '/signup'
     | '/tasks'
   fileRoutesById: FileRoutesById
 }
@@ -91,8 +127,10 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CalendarRoute: typeof CalendarRoute
   InspireRoute: typeof InspireRoute
+  LoginRoute: typeof LoginRoute
   NotesRoute: typeof NotesRoute
   ProfileRoute: typeof ProfileRoute
+  SignupRoute: typeof SignupRoute
   TasksRoute: typeof TasksRoute
 }
 
@@ -103,6 +141,13 @@ declare module '@tanstack/react-router' {
       path: '/tasks'
       fullPath: '/tasks'
       preLoaderRoute: typeof TasksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/profile': {
@@ -117,6 +162,13 @@ declare module '@tanstack/react-router' {
       path: '/notes'
       fullPath: '/notes'
       preLoaderRoute: typeof NotesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/inspire': {
@@ -147,8 +199,10 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CalendarRoute: CalendarRoute,
   InspireRoute: InspireRoute,
+  LoginRoute: LoginRoute,
   NotesRoute: NotesRoute,
   ProfileRoute: ProfileRoute,
+  SignupRoute: SignupRoute,
   TasksRoute: TasksRoute,
 }
 export const routeTree = rootRouteImport

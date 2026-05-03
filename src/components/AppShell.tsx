@@ -1,6 +1,9 @@
-import { Link, Outlet, useLocation } from "@tanstack/react-router";
-import { GraduationCap, LayoutDashboard, ListChecks, CalendarDays, NotebookPen, Sparkles, User } from "lucide-react";
+import { Link, Outlet, useLocation, useNavigate } from "@tanstack/react-router";
+import { useEffect } from "react";
+import { GraduationCap, LayoutDashboard, ListChecks, CalendarDays, NotebookPen, Sparkles, User, LogOut } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { AuthProvider, useAuth } from "@/contexts/AuthContext";
+import { Button } from "@/components/ui/button";
 
 const nav = [
   { to: "/", label: "Dashboard", icon: LayoutDashboard },
@@ -11,8 +14,44 @@ const nav = [
   { to: "/profile", label: "Profile", icon: User },
 ] as const;
 
+const PUBLIC_PATHS = ["/login", "/signup"];
+
 export function AppShell() {
+  return (
+    <AuthProvider>
+      <ShellInner />
+    </AuthProvider>
+  );
+}
+
+function ShellInner() {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, loading, logout } = useAuth();
+  const isPublic = PUBLIC_PATHS.includes(location.pathname);
+
+  useEffect(() => {
+    if (!loading && !user && !isPublic) {
+      navigate({ to: "/login" });
+    }
+  }, [loading, user, isPublic, navigate]);
+
+  if (isPublic) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Outlet />
+      </div>
+    );
+  }
+
+  if (loading || !user) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-background">
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background">
       <header className="sticky top-0 z-30 border-b border-border/60 bg-background/80 backdrop-blur-xl">
@@ -38,9 +77,7 @@ export function AppShell() {
                   to={item.to}
                   className={cn(
                     "rounded-lg px-3 py-2 text-sm font-medium transition-colors",
-                    active
-                      ? "bg-secondary text-secondary-foreground"
-                      : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                    active ? "bg-secondary text-secondary-foreground" : "text-muted-foreground hover:bg-muted hover:text-foreground"
                   )}
                 >
                   {item.label}
@@ -48,6 +85,14 @@ export function AppShell() {
               );
             })}
           </nav>
+          <div className="flex items-center gap-2">
+            <span className="hidden text-xs text-muted-foreground sm:inline">
+              {user.displayName || user.email}
+            </span>
+            <Button size="sm" variant="ghost" onClick={() => logout()} title="Sign out">
+              <LogOut className="h-4 w-4" />
+            </Button>
+          </div>
         </div>
       </header>
 
@@ -64,10 +109,7 @@ export function AppShell() {
               <Link
                 key={item.to}
                 to={item.to}
-                className={cn(
-                  "flex flex-col items-center gap-1 py-2.5 text-[10px] font-medium",
-                  active ? "text-primary" : "text-muted-foreground"
-                )}
+                className={cn("flex flex-col items-center gap-1 py-2.5 text-[10px] font-medium", active ? "text-primary" : "text-muted-foreground")}
               >
                 <Icon className="h-5 w-5" />
                 {item.label}

@@ -41,7 +41,7 @@ function Dashboard() {
         style={{ backgroundImage: "var(--gradient-primary)" }}
       >
         <div className="relative z-10 max-w-2xl">
-          <p className="text-sm/6 opacity-80">{new Date().toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" })}</p>
+          <p className="text-sm/6 opacity-80" suppressHydrationWarning>{new Date().toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" })}</p>
           <h1 className="mt-1 text-3xl font-bold sm:text-4xl">Welcome back 👋</h1>
           <p className="mt-2 text-sm/6 opacity-90">
             You have <span className="font-semibold">{todays.filter((t) => !t.completed).length}</span> task{todays.length === 1 ? "" : "s"} due today and <span className="font-semibold">{upcoming.length}</span> coming up.
