@@ -14,7 +14,7 @@ export const firebaseConfig = {
 };
 
 // 🔑 Replace with your reCAPTCHA v2 site key (google.com/recaptcha → admin)
-export const RECAPTCHA_SITE_KEY = "YOUR_RECAPTCHA_V2_SITE_KEY";
+export const RECAPTCHA_SITE_KEY = "6LfjgNwsAAAAAG5RrQUh4vc76cfH6s3ZHvvCwpnA";
 
 // Test site key (works on localhost; replace before publishing)
 export const RECAPTCHA_TEST_KEY = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI";
