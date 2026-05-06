@@ -4,12 +4,13 @@ import { getAuth, GoogleAuthProvider, type Auth } from "firebase/auth";
 // 🔑 Replace these with your Firebase project config
 // (Firebase Console → Project settings → Your apps → SDK setup)
 export const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID",
+  apiKey: "AIzaSyCLvaTMs6lpewN7DKQfi3DefoB3RA51to4",
+  authDomain: "schedule-sorter-plus-main.firebaseapp.com",
+  projectId: "schedule-sorter-plus-main",
+  storageBucket: "schedule-sorter-plus-main.firebasestorage.app",
+  messagingSenderId: "991071231543",
+  appId: "1:991071231543:web:fcd4d96b3a16d6df7aa9b2",
+  measurementId: "G-Q4PDPMQX32",
 };
 
 // 🔑 Replace with your reCAPTCHA v2 site key (google.com/recaptcha → admin)
