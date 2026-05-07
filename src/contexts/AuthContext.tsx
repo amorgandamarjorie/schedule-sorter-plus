@@ -10,6 +10,23 @@ import {
 } from "firebase/auth";
 import { getFirebaseAuth, googleProvider } from "@/lib/firebase";
 
+const firebaseAuthDomainHelp = [
+  "localhost",
+  "id-preview--5efa86d7-4ffc-4f72-a879-dabaf007efaf.lovable.app",
+  "schedule-sorter-plus.lovable.app",
+].join(", ");
+
+function getFriendlyAuthError(error: unknown): Error {
+  const message = error instanceof Error ? error.message : String(error);
+  if (message.includes("auth/unauthorized-domain")) {
+    const currentDomain = typeof window !== "undefined" ? window.location.hostname : "this domain";
+    return new Error(
+      `Firebase sign-in is not authorized for ${currentDomain}. Add it to Firebase Authentication > Settings > Authorized domains. Expected domains: ${firebaseAuthDomainHelp}.`,
+    );
+  }
+  return error instanceof Error ? error : new Error(message);
+}
+
 interface AuthCtx {
   user: User | null;
   loading: boolean;
@@ -38,14 +55,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     user,
     loading,
     signInEmail: async (email, password) => {
-      await signInWithEmailAndPassword(getFirebaseAuth(), email, password);
+      try {
+        await signInWithEmailAndPassword(getFirebaseAuth(), email, password);
+      } catch (error) {
+        throw getFriendlyAuthError(error);
+      }
     },
     signUpEmail: async (email, password, name) => {
-      const cred = await createUserWithEmailAndPassword(getFirebaseAuth(), email, password);
-      if (name) await updateProfile(cred.user, { displayName: name });
+      try {
+        const cred = await createUserWithEmailAndPassword(getFirebaseAuth(), email, password);
+        if (name) await updateProfile(cred.user, { displayName: name });
+      } catch (error) {
+        throw getFriendlyAuthError(error);
+      }
     },
     signInGoogle: async () => {
-      await signInWithPopup(getFirebaseAuth(), googleProvider);
+      try {
+        await signInWithPopup(getFirebaseAuth(), googleProvider);
+      } catch (error) {
+        throw getFriendlyAuthError(error);
+      }
     },
     logout: async () => {
       await signOut(getFirebaseAuth());
