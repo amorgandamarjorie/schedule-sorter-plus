@@ -20,7 +20,9 @@ function getFriendlyAuthError(error: unknown): Error {
   const message = error instanceof Error ? error.message : String(error);
   if (message.includes("auth/unauthorized-domain")) {
     const currentDomain = typeof window !== "undefined" ? window.location.hostname : "this domain";
-    return new Error(`Firebase sign-in is not authorized for ${currentDomain}. Add it to Firebase Authentication > Settings > Authorized domains. Expected domains: ${firebaseAuthDomainHelp}.`);
+    return new Error(
+      `Firebase sign-in is not authorized for ${currentDomain}. Add it to Firebase Authentication > Settings > Authorized domains. Expected domains: ${firebaseAuthDomainHelp}.`,
+    );
   }
   return error instanceof Error ? error : new Error(message);
 }
