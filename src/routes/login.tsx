@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useRef, useState, type FormEvent } from "react";
-import ReCAPTCHA from "react-google-recaptcha";
+import type ReCAPTCHA from "react-google-recaptcha";
+import { ClientReCAPTCHA } from "@/components/ClientReCAPTCHA";
 import { GraduationCap, Mail, Lock, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -68,7 +69,7 @@ function LoginPage() {
         </Field>
 
         <div className="flex justify-center">
-          <ReCAPTCHA ref={recaptchaRef} sitekey={siteKey} onChange={setCaptcha} />
+          <ClientReCAPTCHA ref={recaptchaRef} sitekey={siteKey} onChange={setCaptcha} />
         </div>
 
         {err && <p className="rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">{err}</p>}
