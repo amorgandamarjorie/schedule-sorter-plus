@@ -71,7 +71,7 @@ function SignupPage() {
         </Field>
 
         <div className="flex justify-center">
-          <ReCAPTCHA ref={recaptchaRef} sitekey={siteKey} onChange={setCaptcha} />
+          <ClientReCAPTCHA ref={recaptchaRef} sitekey={siteKey} onChange={setCaptcha} />
         </div>
 
         {err && <p className="rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">{err}</p>}
