@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useRef, useState, type FormEvent } from "react";
-import ReCAPTCHA from "react-google-recaptcha";
+import type ReCAPTCHA from "react-google-recaptcha";
+import { ClientReCAPTCHA } from "@/components/ClientReCAPTCHA";
 import { GraduationCap, Mail, Lock, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
