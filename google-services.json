@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "944246574567",
+    "project_id": "schedule-sorter-plus-mai-a1021",
+    "storage_bucket": "schedule-sorter-plus-mai-a1021.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:944246574567:android:bd4a51305dcf106c7a4142",
+        "android_client_info": {
+          "package_name": "com.marjorie.schedulesorter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "944246574567-gkgj9rtq1dfhm8g3bqspksqf5hrmaitd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVht-wO-m_l5ctqnHg19QjswAJTsV06Js"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "944246574567-gkgj9rtq1dfhm8g3bqspksqf5hrmaitd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
